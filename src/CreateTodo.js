@@ -1,11 +1,11 @@
 import React from 'react';
+import { Form, Input } from 'semantic-ui-react';
 
 const CreateTodo = (props) => {
   return (
-    <form onSubmit={props.onSubmit}>
-      <input onChange={props.onChange}></input> 
-      <button type="submit">add</button>
-    </form>
+    <Form onSubmit={props.onSubmit}>
+      <Input id="todo-input" fluid action='ADD' onChange={props.onChange}></Input>
+    </Form>
   )
 }
 
