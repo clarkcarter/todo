@@ -13,6 +13,7 @@ class App extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
   }
 
@@ -27,7 +28,8 @@ class App extends React.Component {
       e.preventDefault();
       const newTodo = {
         id: Date.now(),
-        task: this.state.input
+        task: this.state.input,
+        icon: 'circle'
       };
       this.setState((prevState) => ({
         todos: prevState.todos.concat(newTodo),
@@ -37,6 +39,11 @@ class App extends React.Component {
     } else {
       alert("You can't add a blank task.");
     }
+  }
+
+  handleMouseOver(id) {
+    const currentTask = this.state.todos.filter(todo => todo.id === id);
+    alert(currentTask[0].icon);
   }
 
   deleteTodo(id) {
@@ -53,7 +60,7 @@ class App extends React.Component {
             <Grid.Column mobile={16} tablet={8} computer={4}>
               <Header as='h1' textAlign='center'>Todo List</Header>
               <CreateTodo onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-              <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo}/>
+              <TodoList icon={this.state.todos.icon} onMouseOver={this.handleMouseOver} todos={this.state.todos} deleteTodo={this.deleteTodo}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
