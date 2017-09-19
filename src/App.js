@@ -13,7 +13,6 @@ class App extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
   }
 
@@ -29,7 +28,6 @@ class App extends React.Component {
       const newTodo = {
         id: Date.now(),
         task: this.state.input,
-        icon: 'circle'
       };
       this.setState((prevState) => ({
         todos: prevState.todos.concat(newTodo),
@@ -39,11 +37,6 @@ class App extends React.Component {
     } else {
       alert("You can't add a blank task.");
     }
-  }
-
-  handleMouseOver(id) {
-    const currentTask = this.state.todos.filter(todo => todo.id === id);
-    alert(currentTask[0].icon);
   }
 
   deleteTodo(id) {
