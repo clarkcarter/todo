@@ -1,49 +1,29 @@
 import React from 'react';
 import './App.css'
-import TodoList from './TodoList';
-import CreateTodo from './CreateTodo';
+import TaskCreate from './TaskCreate';
+import TaskList from './TaskList';
 import { Grid, Header } from 'semantic-ui-react';
+import firebase from 'firebase';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       input: '',
-      todos: []
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.deleteTodo = this.deleteTodo.bind(this);
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBpSRtUdxPUCmau9YtWv8a9HjejRnL7p5E",
+      authDomain: "todo-list-27c68b.firebaseapp.com",
+      databaseURL: "https://todo-list-27c68b.firebaseio.com",
+      projectId: "todo-list-27c68b",
+      storageBucket: "",
+      messagingSenderId: "316482775429"
+    };
+    firebase.initializeApp(config);
   }
 
-  handleChange(e) {
-    e.preventDefault();
-    this.setState({
-      input: e.target.value
-    });
-  }
 
-  handleSubmit(e) {
-    if ( this.state.input !== '' ) {
-      e.preventDefault();
-      const newTodo = {
-        id: Date.now(),
-        task: this.state.input,
-      };
-      this.setState((prevState) => ({
-        todos: prevState.todos.concat(newTodo),
-        input: '',
-      }));
-      document.getElementById('todo-input').value='';
-    } else {
-    }
-  }
-
-  deleteTodo(id) {
-    this.setState({
-      todos: this.state.todos.filter(todo => todo.id !== id)
-    });
-  }
 
   render() {
     return (
@@ -52,8 +32,8 @@ class App extends React.Component {
           <Grid.Row>
             <Grid.Column mobile={16} tablet={8} computer={4}>
               <Header as='h1' textAlign='center'>Todo List</Header>
-              <CreateTodo onChange={this.handleChange} onSubmit={this.handleSubmit} />
-              <TodoList icon={this.state.todos.icon} onMouseOver={this.handleMouseOver} todos={this.state.todos} deleteTodo={this.deleteTodo}/>
+              <TaskCreate db={firebase}/>
+              <TaskList db={firebase}/>
             </Grid.Column>
           </Grid.Row>
         </Grid>
