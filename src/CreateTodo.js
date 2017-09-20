@@ -5,7 +5,7 @@ const CreateTodo = (props) => {
   return (
     <div>
       <Form onSubmit={props.onSubmit}>
-        <Input id="todo-input" fluid action='ADD' onChange={props.onChange} autoFocus></Input>
+        <Input id="todo-input" fluid action='ADD' onChange={props.onChange} autoFocus autoComplete='off'></Input>
       </Form>
     </div>
   )
