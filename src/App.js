@@ -32,11 +32,10 @@ class App extends React.Component {
       };
       this.setState((prevState) => ({
         todos: prevState.todos.concat(newTodo),
-        input: ''
+        input: '',
       }));
       document.getElementById('todo-input').value='';
     } else {
-      alert("You can't add a blank task.");
     }
   }
 
@@ -53,7 +52,7 @@ class App extends React.Component {
           <Grid.Row>
             <Grid.Column mobile={16} tablet={8} computer={4}>
               <Header as='h1' textAlign='center'>Todo List</Header>
-              <CreateTodo onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+              <CreateTodo onChange={this.handleChange} onSubmit={this.handleSubmit} />
               <TodoList icon={this.state.todos.icon} onMouseOver={this.handleMouseOver} todos={this.state.todos} deleteTodo={this.deleteTodo}/>
             </Grid.Column>
           </Grid.Row>
