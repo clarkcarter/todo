@@ -17,7 +17,8 @@ class TaskList extends React.Component {
 
   getTasks(value) {
     let taskVal = value;
-    let tasks = _(taskVal).keys().map(taskKey => {
+    let tasks = _(taskVal).keys()
+    .map(taskKey => {
         let cloned = _.clone(taskVal[taskKey]);
         cloned.key = taskKey;
         return cloned;
@@ -30,9 +31,7 @@ class TaskList extends React.Component {
   render() {
     const tasks = this.state.tasks.map((task) => {
       return (
-        <li key={task.key}>
-          <TaskItem task={task.task}/>
-        </li>
+        <TaskItem task={task.task} key={task.key}/>
       )
     });
     return (
