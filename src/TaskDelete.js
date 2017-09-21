@@ -3,7 +3,7 @@ import React from 'react';
 const TaskDelete = (props) => {
   return (
     <div>
-      <button onClick={props.onClick}>Delete</button>
+      <button onClick={props.onDelete}>Delete</button>
     </div>
   )
 }

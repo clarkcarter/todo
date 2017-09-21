@@ -31,7 +31,7 @@ class TaskList extends React.Component {
   render() {
     const tasks = this.state.tasks.map((task) => {
       return (
-        <TaskItem task={task.task} key={task.key}/>
+        <TaskItem task={task.task} key={task.key} uniqueIdentifyer={task.key} db={this.props.db}/>
       )
     });
     return (
