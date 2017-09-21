@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskDelete from './TaskDelete';
 import TaskEdit from './TaskEdit';
+import TaskText from './TaskText';
 import InputEditItem from './InputEditItem';
 
 class TaskItem extends React.Component {
@@ -31,9 +32,15 @@ class TaskItem extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.setState({
-      input: e.target.value
-    });
+    if (e.target.value === e.target.defaultValue) {
+      this.setState({
+        input: e.target.defaultValue
+      });
+    } else {
+      this.setState({
+        input: e.target.value
+      });
+    }
   }
 
   handleEnter(e) {
@@ -68,7 +75,7 @@ class TaskItem extends React.Component {
     if (this.state.editing) {
       return <InputEditItem text={this.props.task} onChange={this.handleChange} onKeyUp={this.handleEnter}/>;
     } else {
-      return this.props.task;
+      return <TaskText onClick={this.handleStartEdit} task={this.props.task}/>;
     }
   }
 
