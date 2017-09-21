@@ -13,6 +13,7 @@ class TaskCreate extends React.Component {
   }
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({
       input: e.target.value
     });
