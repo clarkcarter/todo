@@ -1,10 +1,9 @@
 import React from 'react';
+import { Button } from 'semantic-ui-react';
 
 const TaskDelete = (props) => {
   return (
-    <div>
-      <button onClick={props.onDelete}>Delete</button>
-    </div>
+      <Button onClick={props.onDelete}>Delete</Button>
   )
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import TaskDelete from './TaskDelete';
 import TaskText from './TaskText';
 import InputEditItem from './InputEditItem';
+import { List } from 'semantic-ui-react';
 
 class TaskItem extends React.Component {
   constructor(props) {
@@ -105,10 +106,14 @@ class TaskItem extends React.Component {
 
   render() {
     return (
-      <li>
-      {this.displayTaskOrEditing()}
-      <TaskDelete onDelete={this.handleDelete} />
-      </li>
+      <List.Item>
+        <List.Content floated="left" style={{lineHeight: '2.2em'}}>
+          {this.displayTaskOrEditing()}
+        </List.Content>
+        <List.Content floated='right'>
+          <TaskDelete onDelete={this.handleDelete} />
+        </List.Content>
+      </List.Item>
     )
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import TaskItem from './TaskItem';
+import { List } from 'semantic-ui-react';
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -35,9 +36,9 @@ class TaskList extends React.Component {
       )
     });
     return (
-      <ul>
+      <List selection celled verticalAlign='middle'>
         {tasks}
-      </ul>
+      </List>
     )
   }
 }
