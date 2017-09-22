@@ -1,6 +1,5 @@
 import React from 'react';
 import TaskDelete from './TaskDelete';
-import TaskEdit from './TaskEdit';
 import TaskText from './TaskText';
 import InputEditItem from './InputEditItem';
 
@@ -109,7 +108,6 @@ class TaskItem extends React.Component {
       <li>
       {this.displayTaskOrEditing()}
       <TaskDelete onDelete={this.handleDelete} />
-      <TaskEdit onEdit={this.state.editing ? this.handleFinishEdit : this.handleStartEdit} editing={this.state.editing}/>
       </li>
     )
   }
