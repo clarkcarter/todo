@@ -13,6 +13,7 @@ class TaskItem extends React.Component {
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleStartEdit = this.handleStartEdit.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.handleFinishEdit = this.handleFinishEdit.bind(this);
@@ -25,13 +26,34 @@ class TaskItem extends React.Component {
   }
 
   handleStartEdit() {
-    this.setState({
-      editing: !this.state.editing
-    });
+    if (!this.state.editing) {
+     // attach/remove event handler
+     document.addEventListener('click', this.handleOutsideClick);
+   } else {
+     document.removeEventListener('click', this.handleOutsideClick);
+   }
+   this.setState(prevState => ({
+       editing: !prevState.editing
+    }));
+  }
+
+  handleOutsideClick(e) {
+    if (this.node.contains(e.target)) {
+      return;
+    } else if (this.state.input !== '') {
+      this.props.db.database().ref('/tasks/' + this.props.uniqueIdentifyer).update({task: this.state.input});
+      this.setState({
+        input: '',
+        editing: !this.state.editing
+      });
+      document.removeEventListener('click', this.handleOutsideClick);
+    } else if (this.state.input === '') {
+      this.handleDelete();
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
   }
 
   handleChange(e) {
-    e.preventDefault();
     if (e.target.value === e.target.defaultValue) {
       this.setState({
         input: e.target.defaultValue
@@ -46,6 +68,7 @@ class TaskItem extends React.Component {
   handleEnter(e) {
     if(e.keyCode === 13 && this.state.input === '') {
       this.handleDelete();
+      document.removeEventListener('click', this.handleOutsideClick);
     } else if (e.keyCode === 13 && this.state.input !== '') {
       e.preventDefault();
       // add to firebase db
@@ -54,26 +77,28 @@ class TaskItem extends React.Component {
         input: '',
         editing: !this.state.editing
       });
+      document.removeEventListener('click', this.handleOutsideClick);
     }
   }
 
   handleFinishEdit(e) {
     if(this.state.input === '') {
       this.handleDelete();
+      document.removeEventListener('click', this.handleOutsideClick);
     } else if (this.state.input !== ''){
       e.preventDefault();
       // add to firebase db
       this.props.db.database().ref('/tasks/' + this.props.uniqueIdentifyer).update({task: this.state.input});
-      this.setState({
+      this.setState(prevState => ({
         input: '',
-        editing: !this.state.editing
-      });
+        editing: !prevState.editing
+      }));
     }
   }
 
   displayTaskOrEditing() {
     if (this.state.editing) {
-      return <InputEditItem text={this.props.task} onChange={this.handleChange} onKeyUp={this.handleEnter}/>;
+      return <InputEditItem inputRef={node => { this.node = node; }} text={this.props.task} onChange={this.handleChange} onKeyUp={this.handleEnter}/>;
     } else {
       return <TaskText onClick={this.handleStartEdit} task={this.props.task}/>;
     }

@@ -2,7 +2,7 @@ import React from 'react';
 
 const InputEditItem = (props) => {
   return (
-    <input defaultValue={props.text} onSelect={props.onChange} onKeyUp={props.onKeyUp} autoFocus type="text"></input>
+    <input ref={props.inputRef} defaultValue={props.text} onSelect={props.onChange} onKeyUp={props.onKeyUp} autoFocus type="text"></input>
   )
 }
 
