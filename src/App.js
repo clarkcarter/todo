@@ -22,9 +22,7 @@ class App extends React.Component {
     };
     firebase.initializeApp(config);
   }
-
-
-
+  
   render() {
     return (
       <div className='todo-app'>
